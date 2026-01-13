@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grounded RAG System</title>
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --accent: #6c63ff;
+            --accent-hover: #5a52d5;
+            --success: #00d9a5;
+            --warning: #ffc107;
+            --danger: #ff6b6b;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --border: #2a2a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .query-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button {
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .options {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .option input {
+            accent-color: var(--accent);
+        }
+
+        select {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-section.visible {
+            display: block;
+        }
+
+        .answer-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .answer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .answer-header h2 {
+            color: var(--success);
+        }
+
+        .scores {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .score-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .score-high {
+            background: rgba(0, 217, 165, 0.2);
+            color: var(--success);
+        }
+
+        .score-medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--warning);
+        }
+
+        .score-low {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--danger);
+        }
+
+        .answer-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .citation {
+            background: var(--accent);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .citation:hover {
+            background: var(--accent-hover);
+        }
+
+        .chunks-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .chunks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chunks-header h3 {
+            color: var(--text-primary);
+        }
+
+        .chunk-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+        }
+
+        .chunk-card:hover {
+            border-color: var(--accent);
+        }
+
+        .chunk-card.cited {
+            border-color: var(--success);
+            background: rgba(0, 217, 165, 0.05);
+        }
+
+        .chunk-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .chunk-content {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .agent-info {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .agent-info h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .attempts-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .attempt {
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .attempt.success {
+            border-left: 3px solid var(--success);
+        }
+
+        .attempt.failed {
+            border-left: 3px solid var(--danger);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .loading.visible {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .error.visible {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Grounded RAG System</h1>
+            <p class="subtitle">Ask questions about HuggingFace Transformers • Answers with citations</p>
+        </header>
+
+        <section class="query-section">
+            <div class="input-group">
+                <input type="text" id="queryInput" placeholder="Ask a question... (e.g., What is BERT?)" autofocus>
+                <button id="queryBtn" onclick="submitQuery()">Ask</button>
+            </div>
+            <div class="options">
+                <div class="option">
+                    <input type="checkbox" id="useAgent" checked>
+                    <label for="useAgent">Use Agent (auto-retry)</label>
+                </div>
+                <div class="option">
+                    <label for="topK">Chunks:</label>
+                    <select id="topK">
+                        <option value="3">3</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Searching documents and generating answer...</p>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <section class="results-section" id="results">
+            <div class="answer-card">
+                <div class="answer-header">
+                    <h2>💡 Answer</h2>
+                    <div class="scores" id="scores"></div>
+                </div>
+                <p class="answer-text" id="answerText"></p>
+                <div class="agent-info" id="agentInfo" style="display: none;">
+                    <h4>🤖 Agent Activity</h4>
+                    <div class="attempts-list" id="attemptsList"></div>
+                </div>
+            </div>
+
+            <div class="chunks-section">
+                <div class="chunks-header">
+                    <h3>📄 Retrieved Chunks</h3>
+                    <span id="chunkCount"></span>
+                </div>
+                <div id="chunksList"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000';
+        
+        // Allow Enter key to submit
+        document.getElementById('queryInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitQuery();
+        });
+
+        async function submitQuery() {
+            const query = document.getElementById('queryInput').value.trim();
+            if (!query) return;
+
+            const useAgent = document.getElementById('useAgent').checked;
+            const topK = parseInt(document.getElementById('topK').value);
+
+            // Show loading
+            document.getElementById('loading').classList.add('visible');
+            document.getElementById('results').classList.remove('visible');
+            document.getElementById('error').classList.remove('visible');
+            document.getElementById('queryBtn').disabled = true;
+
+            try {
+                const endpoint = useAgent ? '/agent/query' : '/query';
+                const body = useAgent 
+                    ? { query, top_k: topK, auto_retry: true }
+                    : { query, top_k: topK, include_evaluation: true };
+
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                displayResults(data, useAgent);
+
+            } catch (err) {
+                document.getElementById('error').textContent = `Error: ${err.message}`;
+                document.getElementById('error').classList.add('visible');
+            } finally {
+                document.getElementById('loading').classList.remove('visible');
+                document.getElementById('queryBtn').disabled = false;
+            }
+        }
+
+        function displayResults(data, isAgent) {
+            // Get answer and citations
+            const answer = isAgent ? data.final_answer : data.generated_answer;
+            const citations = data.citations || [];
+            const chunks = data.retrieved_chunks || [];
+
+            // Highlight citations in answer
+            let displayAnswer = answer;
+            citations.forEach(cid => {
+                displayAnswer = displayAnswer.replace(
+                    new RegExp(`\\[${cid}\\]`, 'g'),
+                    `<span class="citation" onclick="scrollToChunk('${cid}')">[${cid.substring(0, 8)}]</span>`
+                );
+            });
+            document.getElementById('answerText').innerHTML = displayAnswer;
+
+            // Scores
+            const scoresDiv = document.getElementById('scores');
+            scoresDiv.innerHTML = '';
+            
+            if (isAgent) {
+                const conf = data.confidence_score;
+                const scoreClass = conf >= 0.8 ? 'score-high' : conf >= 0.5 ? 'score-medium' : 'score-low';
+                scoresDiv.innerHTML = `
+                    <span class="score-badge ${scoreClass}">Confidence: ${(conf * 100).toFixed(0)}%</span>
+                    <span class="score-badge score-high">Attempts: ${data.attempts}</span>
+                `;
+            } else if (data.evaluation) {
+                const faith = data.evaluation.faithfulness_score || 0;
+                const useful = data.evaluation.usefulness_score || 0;
+                scoresDiv.innerHTML = `
+                    <span class="score-badge ${faith >= 0.8 ? 'score-high' : faith >= 0.5 ? 'score-medium' : 'score-low'}">
+                        Faith: ${(faith * 100).toFixed(0)}%
+                    </span>
+                    <span class="score-badge ${useful >= 0.8 ? 'score-high' : useful >= 0.5 ? 'score-medium' : 'score-low'}">
+                        Useful: ${(useful * 100).toFixed(0)}%
+                    </span>
+                `;
+            }
+
+            // Agent info
+            const agentDiv = document.getElementById('agentInfo');
+            if (isAgent && data.all_attempts && data.all_attempts.length > 1) {
+                agentDiv.style.display = 'block';
+                const attemptsList = document.getElementById('attemptsList');
+                attemptsList.innerHTML = data.all_attempts.map(a => `
+                    <div class="attempt ${a.is_refusal ? 'failed' : 'success'}">
+                        <strong>${a.strategy}</strong><br>
+                        ${a.confidence.toFixed(2)} confidence
+                    </div>
+                `).join('');
+            } else {
+                agentDiv.style.display = 'none';
+            }
+
+            // Chunks
+            document.getElementById('chunkCount').textContent = `${chunks.length} chunks retrieved`;
+            const chunksList = document.getElementById('chunksList');
+            chunksList.innerHTML = chunks.map(c => `
+                <div class="chunk-card ${citations.includes(c.chunk_id) ? 'cited' : ''}" id="chunk-${c.chunk_id}">
+                    <div class="chunk-meta">
+                        <span>📁 ${c.source}${c.section ? ` • ${c.section}` : ''}</span>
+                        <span>Score: ${(c.similarity_score * 100).toFixed(1)}%</span>
+                    </div>
+                    <div class="chunk-content">${escapeHtml(c.content.substring(0, 500))}${c.content.length > 500 ? '...' : ''}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('results').classList.add('visible');
+        }
+
+        function scrollToChunk(chunkId) {
+            const el = document.getElementById(`chunk-${chunkId}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.style.borderColor = 'var(--accent)';
+                setTimeout(() => el.style.borderColor = '', 2000);
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+[
+  {
+    "query": "Who introduced the Transformer architecture and in what year?",
+    "relevant_chunk_ids": [
+      "9764c202a662"
+    ],
+    "source": "01_transformers_overview.md",
+    "section": "Transformers Overview"
+  },
+  {
+    "query": "What is the purpose of positional encoding in Transformers?",
+    "relevant_chunk_ids": [
+      "9764c202a662"
+    ],
+    "source": "01_transformers_overview.md",
+    "section": "Transformers Overview"
+  },
+  {
+    "query": "What is the main function of the encoder in a Transformer model?",
+    "relevant_chunk_ids": [
+      "2cb7db86d0e7"
+    ],
+    "source": "01_transformers_overview.md",
+    "section": "Key Components"
+  },
+  {
+    "query": "Which pre-training objective is used by the BERT model?",
+    "relevant_chunk_ids": [
+      "2cb7db86d0e7"
+    ],
+    "source": "01_transformers_overview.md",
+    "section": "Key Components"
+  },
+  {
+    "query": "What type of model does the `Trainer` class facilitate training for?",
+    "relevant_chunk_ids": [
+      "bd43ac260390"
+    ],
+    "source": "05_trainer.md",
+    "section": "Training with Trainer"
+  },
+  {
+    "query": "How many training epochs are specified in the `TrainingArguments` configuration?",
+    "relevant_chunk_ids": [
+      "bd43ac260390"
+    ],
+    "source": "05_trainer.md",
+    "section": "Training with Trainer"
+  },
+  {
+    "query": "What is the initial learning rate specified in the training arguments?",
+    "relevant_chunk_ids": [
+      "caa755a63012"
+    ],
+    "source": "05_trainer.md",
+    "section": "TrainingArguments"
+  },
+  {
+    "query": "How often is the model evaluated according to the evaluation strategy?",
+    "relevant_chunk_ids": [
+      "caa755a63012"
+    ],
+    "source": "05_trainer.md",
+    "section": "TrainingArguments"
+  },
+  {
+    "query": "What is the purpose of the `fp16` parameter in the training setup?",
+    "relevant_chunk_ids": [
+      "4074e4084605"
+    ],
+    "source": "05_trainer.md",
+    "section": "Important Training Arguments"
+  },
+  {
+    "query": "How do you save a model using the Trainer class?",
+    "relevant_chunk_ids": [
+      "4074e4084605"
+    ],
+    "source": "05_trainer.md",
+    "section": "Important Training Arguments"
+  },
+  {
+    "query": "What function is used to save the model in the provided code?",
+    "relevant_chunk_ids": [
+      "c66da83b4d02"
+    ],
+    "source": "05_trainer.md",
+    "section": "Custom Metrics"
+  },
+  {
+    "query": "How many trials are conducted in the hyperparameter search?",
+    "relevant_chunk_ids": [
+      "c66da83b4d02"
+    ],
+    "source": "05_trainer.md",
+    "section": "Custom Metrics"
+  },
+  {
+    "query": "What are the two pre-training objectives of BERT?",
+    "relevant_chunk_ids": [
+      "f70f08b5ae1b"
+    ],
+    "source": "08_bert.md",
+    "section": "BERT: Bidirectional Encoder Representations from Transformers"
+  },
+  {
+    "query": "How many layers does the BERT-Large model have?",
+    "relevant_chunk_ids": [
+      "f70f08b5ae1b"
+    ],
+    "source": "08_bert.md",
+    "section": "BERT: Bidirectional Encoder Representations from Transformers"
+  },
+  {
+    "query": "What is the role of the [CLS] token in BERT?",
+    "relevant_chunk_ids": [
+      "3f41d084688b"
+    ],
+    "source": "08_bert.md",
+    "section": "1. Masked Language Modeling (MLM)"
+  },
+  {
+    "query": "Which token is used to separate two sentences in BERT's input format?",
+    "relevant_chunk_ids": [
+      "3f41d084688b"
+    ],
+    "source": "08_bert.md",
+    "section": "1. Masked Language Modeling (MLM)"
+  },
+  {
+    "query": "What is the maximum sequence length of BERT models?",
+    "relevant_chunk_ids": [
+      "e9bf84717d12"
+    ],
+    "source": "08_bert.md",
+    "section": "Common Use Cases"
+  },
+  {
+    "query": "Which BERT variant is specifically pre-trained on scientific text?",
+    "relevant_chunk_ids": [
+      "e9bf84717d12"
+    ],
+    "source": "08_bert.md",
+    "section": "Common Use Cases"
+  },
+  {
+    "query": "What is the purpose of a pipeline in the Pipeline API?",
+    "relevant_chunk_ids": [
+      "085620b9451b"
+    ],
+    "source": "04_pipeline.md",
+    "section": "Pipeline API"
+  },
+  {
+    "query": "List two tasks that have corresponding pipelines available in the Pipeline API.",
+    "relevant_chunk_ids": [
+      "085620b9451b"
+    ],
+    "source": "04_pipeline.md",
+    "section": "Pipeline API"
+  },
+  {
+    "query": "What is the model used for sentiment analysis in the provided Python code?",
+    "relevant_chunk_ids": [
+      "59ab4f0100a4"
+    ],
+    "source": "04_pipeline.md",
+    "section": "Available Pipelines"
+  },
+  {
+    "query": "What is the context used in the question-answering pipeline example?",
+    "relevant_chunk_ids": [
+      "59ab4f0100a4"
+    ],
+    "source": "04_pipeline.md",
+    "section": "Available Pipelines"
+  },
+  {
+    "query": "What is the purpose of the 'generator' variable in the provided code?",
+    "relevant_chunk_ids": [
+      "4cec4fa2c2b7"
+    ],
+    "source": "04_pipeline.md",
+    "section": "Text Generation Pipeline"
+  },
+  {
+    "query": "How can you utilize GPU acceleration for the sentiment-analysis pipeline?",
+    "relevant_chunk_ids": [
+      "4cec4fa2c2b7"
+    ],
+    "source": "04_pipeline.md",
+    "section": "Text Generation Pipeline"
+  },
+  {
+    "query": "What is the purpose of the attention mechanism in Transformer models?",
+    "relevant_chunk_ids": [
+      "633f57232f4a"
+    ],
+    "source": "07_attention.md",
+    "section": "Attention Mechanism"
+  },
+  {
+    "query": "What are the steps involved in computing attention scores in self-attention?",
+    "relevant_chunk_ids": [
+      "633f57232f4a"
+    ],
+    "source": "07_attention.md",
+    "section": "Attention Mechanism"
+  },
+  {
+    "query": "What is the formula for calculating attention in the provided text?",
+    "relevant_chunk_ids": [
+      "9f227ea37ec8"
+    ],
+    "source": "07_attention.md",
+    "section": "How Self-Attention Works"
+  },
+  {
+    "query": "What types of relationships do different layers of attention focus on?",
+    "relevant_chunk_ids": [
+      "9f227ea37ec8"
+    ],
+    "source": "07_attention.md",
+    "section": "How Self-Attention Works"
+  },
+  {
+    "query": "What is the role of the query in the cross-attention mechanism of encoder-decoder models?",
+    "relevant_chunk_ids": [
+      "e180e2ce7e98"
+    ],
+    "source": "07_attention.md",
+    "section": "Attention Patterns"
+  },
+  {
+    "query": "Name two types of attention masks mentioned in the text and describe their purpose.",
+    "relevant_chunk_ids": [
+      "e180e2ce7e98"
+    ],
+    "source": "07_attention.md",
+    "section": "Attention Patterns"
+  },
+  {
+    "query": "What is the purpose of a padding mask?",
+    "relevant_chunk_ids": [
+      "68f7872a08ad"
+    ],
+    "source": "07_attention.md",
+    "section": "Attention Masks"
+  },
+  {
+    "query": "How does a causal mask function during token generation?",
+    "relevant_chunk_ids": [
+      "68f7872a08ad"
+    ],
+    "source": "07_attention.md",
+    "section": "Attention Masks"
+  },
+  {
+    "query": "What class should be used for classification tasks in Transformers?",
+    "relevant_chunk_ids": [
+      "c3cb8bbc1b39"
+    ],
+    "source": "02_auto_classes.md",
+    "section": "AutoModel and AutoTokenizer"
+  },
+  {
+    "query": "How can models be loaded from a local directory using AutoModel?",
+    "relevant_chunk_ids": [
+      "c3cb8bbc1b39"
+    ],
+    "source": "02_auto_classes.md",
+    "section": "AutoModel and AutoTokenizer"
+  },
+  {
+    "query": "What is the command to load a model from a local directory?",
+    "relevant_chunk_ids": [
+      "423548e7a5ba"
+    ],
+    "source": "02_auto_classes.md",
+    "section": "Loading from Hub"
+  },
+  {
+    "query": "What Auto class should be used for text classification tasks?",
+    "relevant_chunk_ids": [
+      "423548e7a5ba"
+    ],
+    "source": "02_auto_classes.md",
+    "section": "Loading from Hub"
+  },
+  {
+    "query": "What is the purpose of `AutoModelForQuestionAnswering`?",
+    "relevant_chunk_ids": [
+      "5da4bd846631"
+    ],
+    "source": "02_auto_classes.md",
+    "section": "Task-Specific Models"
+  },
+  {
+    "query": "Which model is used for translation and summarization?",
+    "relevant_chunk_ids": [
+      "5da4bd846631"
+    ],
+    "source": "02_auto_classes.md",
+    "section": "Task-Specific Models"
+  },
+  {
+    "query": "What types of tasks do the models on the Hugging Face Hub cover?",
+    "relevant_chunk_ids": [
+      "e1e816b51860"
+    ],
+    "source": "10_hub.md",
+    "section": "Model Hub and Sharing"
+  },
+  {
+    "query": "What information should be included in a model card for a model on the Hugging Face Hub?",
+    "relevant_chunk_ids": [
+      "e1e816b51860"
+    ],
+    "source": "10_hub.md",
+    "section": "Model Hub and Sharing"
+  },
+  {
+    "query": "What files are typically included in a model repository?",
+    "relevant_chunk_ids": [
+      "56d1c29f1fb5"
+    ],
+    "source": "10_hub.md",
+    "section": "Model Card"
+  },
+  {
+    "query": "How can you make a model private using the provided code?",
+    "relevant_chunk_ids": [
+      "56d1c29f1fb5"
+    ],
+    "source": "10_hub.md",
+    "section": "Model Card"
+  },
+  {
+    "query": "What is the purpose of creating an organization as mentioned in the text?",
+    "relevant_chunk_ids": [
+      "100d219e14f6"
+    ],
+    "source": "10_hub.md",
+    "section": "Repository Structure"
+  },
+  {
+    "query": "What are some types of applications that can be hosted in Spaces?",
+    "relevant_chunk_ids": [
+      "100d219e14f6"
+    ],
+    "source": "10_hub.md",
+    "section": "Repository Structure"
+  },
+  {
+    "query": "What is the main architecture component used by GPT models?",
+    "relevant_chunk_ids": [
+      "58a16e7769fb"
+    ],
+    "source": "09_gpt.md",
+    "section": "GPT: Generative Pre-trained Transformer"
+  },
+  {
+    "query": "How many parameters does the GPT-2 XL model have?",
+    "relevant_chunk_ids": [
+      "58a16e7769fb"
+    ],
+    "source": "09_gpt.md",
+    "section": "GPT: Generative Pre-trained Transformer"
+  },
+  {
+    "query": "What is the purpose of the `max_length` parameter in the generation parameters?",
+    "relevant_chunk_ids": [
+      "a3eef00e0bcf"
+    ],
+    "source": "09_gpt.md",
+    "section": "Pre-training Objective"
+  },
+  {
+    "query": "How does increasing the `temperature` value affect the randomness of the generated text?",
+    "relevant_chunk_ids": [
+      "a3eef00e0bcf"
+    ],
+    "source": "09_gpt.md",
+    "section": "Pre-training Objective"
+  },
+  {
+    "query": "What is the main characteristic of Greedy Decoding?",
+    "relevant_chunk_ids": [
+      "f95e9c64ace8"
+    ],
+    "source": "09_gpt.md",
+    "section": "Generation Parameters"
+  },
+  {
+    "query": "How does the architecture of GPT differ from that of BERT?",
+    "relevant_chunk_ids": [
+      "f95e9c64ace8"
+    ],
+    "source": "09_gpt.md",
+    "section": "Generation Parameters"
+  },
+  {
+    "query": "What is the process of tokenization?",
+    "relevant_chunk_ids": [
+      "bfe1da62471a"
+    ],
+    "source": "03_tokenizers.md",
+    "section": "Tokenizers"
+  },
+  {
+    "query": "What are some examples of subword tokenizers mentioned in the text?",
+    "relevant_chunk_ids": [
+      "bfe1da62471a"
+    ],
+    "source": "03_tokenizers.md",
+    "section": "Tokenizers"
+  },
+  {
+    "query": "What special token is used to indicate the start of a sequence in tokenizers?",
+    "relevant_chunk_ids": [
+      "73a496c3d861"
+    ],
+    "source": "03_tokenizers.md",
+    "section": "Subword Tokenization"
+  },
+  {
+    "query": "How can you prepare inputs for a batch of texts using the tokenizer?",
+    "relevant_chunk_ids": [
+      "73a496c3d861"
+    ],
+    "source": "03_tokenizers.md",
+    "section": "Subword Tokenization"
+  },
+  {
+    "query": "What function does the tokenizer perform when converting IDs back to text?",
+    "relevant_chunk_ids": [
+      "4afa1d7dc7c7"
+    ],
+    "source": "03_tokenizers.md",
+    "section": "Single text"
+  },
+  {
+    "query": "What parameters are used in the tokenizer to handle variable-length sequences?",
+    "relevant_chunk_ids": [
+      "4afa1d7dc7c7"
+    ],
+    "source": "03_tokenizers.md",
+    "section": "Single text"
+  },
+  {
+    "query": "What are the specific areas that fine-tuning adapts a pretrained model to?",
+    "relevant_chunk_ids": [
+      "6634b0f8fe94"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "Fine-Tuning Guide"
+  },
+  {
+    "query": "What is the main difference between fine-tuning and feature extraction in model training?",
+    "relevant_chunk_ids": [
+      "6634b0f8fe94"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "Fine-Tuning Guide"
+  },
+  {
+    "query": "What is the maximum length set for tokenization in the preprocessing function?",
+    "relevant_chunk_ids": [
+      "05d098faaec3"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "Create dataset"
+  },
+  {
+    "query": "How many training epochs are specified in the training arguments?",
+    "relevant_chunk_ids": [
+      "05d098faaec3"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "Create dataset"
+  },
+  {
+    "query": "What is the typical range for the learning rate hyperparameter?",
+    "relevant_chunk_ids": [
+      "881841d377e3"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "4. Set Up Training"
+  },
+  {
+    "query": "Why is it recommended to freeze layers initially when working with small datasets?",
+    "relevant_chunk_ids": [
+      "881841d377e3"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "4. Set Up Training"
+  },
+  {
+    "query": "What is the purpose of freezing layers in model training?",
+    "relevant_chunk_ids": [
+      "70b6176243ab"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "Tips for Better Results"
+  },
+  {
+    "query": "What parameters are specified in the LoraConfig for efficient fine-tuning of large models?",
+    "relevant_chunk_ids": [
+      "70b6176243ab"
+    ],
+    "source": "06_fine_tuning.md",
+    "section": "Tips for Better Results"
+  }
+]

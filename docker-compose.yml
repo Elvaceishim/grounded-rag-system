@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  rag-system:
+    build: .
+    container_name: grounded-rag
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-openai/gpt-4o-mini}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-openai/text-embedding-3-small}
+      - CHUNK_SIZE=${CHUNK_SIZE:-1000}
+      - CHUNK_OVERLAP=${CHUNK_OVERLAP:-200}
+      - TOP_K=${TOP_K:-5}
+      - CHROMA_PERSIST_DIR=/app/chroma_db
+      - LOG_DIR=/app/logs
+      - CORPUS_DIR=/app/data/corpus
+    volumes:
+      # Persist vector database
+      - rag_chroma_data:/app/chroma_db
+      # Persist logs
+      - rag_logs:/app/logs
+      # Mount corpus (optional - for adding new docs without rebuild)
+      - ./data/corpus:/app/data/corpus:ro
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  rag_chroma_data:
+  rag_logs:

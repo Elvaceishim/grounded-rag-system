@@ -1,0 +1,10 @@
+[project]
+name = "rag-eval-system"
+version = "1.0.0"
+description = "Grounded Knowledge Retrieval & Answering System with Evaluation"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

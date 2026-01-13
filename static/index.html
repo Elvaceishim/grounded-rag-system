@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -326,7 +327,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .error {
@@ -347,7 +350,7 @@
             .input-group {
                 flex-direction: column;
             }
-            
+
             .options {
                 flex-direction: column;
                 align-items: flex-start;
@@ -355,10 +358,11 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1>🔍 Grounded RAG System</h1>
+            <h1>Grounded RAG System</h1>
             <p class="subtitle">Ask questions about HuggingFace Transformers • Answers with citations</p>
         </header>
 
@@ -393,19 +397,19 @@
         <section class="results-section" id="results">
             <div class="answer-card">
                 <div class="answer-header">
-                    <h2>💡 Answer</h2>
+                    <h2>Answer</h2>
                     <div class="scores" id="scores"></div>
                 </div>
                 <p class="answer-text" id="answerText"></p>
                 <div class="agent-info" id="agentInfo" style="display: none;">
-                    <h4>🤖 Agent Activity</h4>
+                    <h4>Agent Activity</h4>
                     <div class="attempts-list" id="attemptsList"></div>
                 </div>
             </div>
 
             <div class="chunks-section">
                 <div class="chunks-header">
-                    <h3>📄 Retrieved Chunks</h3>
+                    <h3>Retrieved Chunks</h3>
                     <span id="chunkCount"></span>
                 </div>
                 <div id="chunksList"></div>
@@ -415,7 +419,7 @@
 
     <script>
         const API_BASE = 'http://127.0.0.1:8000';
-        
+
         // Allow Enter key to submit
         document.getElementById('queryInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') submitQuery();
@@ -436,7 +440,7 @@
 
             try {
                 const endpoint = useAgent ? '/agent/query' : '/query';
-                const body = useAgent 
+                const body = useAgent
                     ? { query, top_k: topK, auto_retry: true }
                     : { query, top_k: topK, include_evaluation: true };
 
@@ -481,7 +485,7 @@
             // Scores
             const scoresDiv = document.getElementById('scores');
             scoresDiv.innerHTML = '';
-            
+
             if (isAgent) {
                 const conf = data.confidence_score;
                 const scoreClass = conf >= 0.8 ? 'score-high' : conf >= 0.5 ? 'score-medium' : 'score-low';
@@ -523,7 +527,7 @@
             chunksList.innerHTML = chunks.map(c => `
                 <div class="chunk-card ${citations.includes(c.chunk_id) ? 'cited' : ''}" id="chunk-${c.chunk_id}">
                     <div class="chunk-meta">
-                        <span>📁 ${c.source}${c.section ? ` • ${c.section}` : ''}</span>
+                        <span>${c.source}${c.section ? ` | ${c.section}` : ''}</span>
                         <span>Score: ${(c.similarity_score * 100).toFixed(1)}%</span>
                     </div>
                     <div class="chunk-content">${escapeHtml(c.content.substring(0, 500))}${c.content.length > 500 ? '...' : ''}</div>
@@ -549,4 +553,5 @@
         }
     </script>
 </body>
+
 </html>

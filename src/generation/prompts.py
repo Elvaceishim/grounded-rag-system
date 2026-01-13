@@ -11,6 +11,7 @@ RULES - You MUST follow these exactly:
 3. For EVERY claim, cite the chunk ID in brackets like [chunk_abc123]
 4. If the context does not contain enough information, respond: "I cannot answer based on the provided documents."
 5. Be concise and factual - no unnecessary elaboration
+6. Do NOT use markdown formatting - no asterisks, no bullet points, no numbered lists. Write in plain prose.
 """
 
 GENERATION_PROMPT = """You are a precise research assistant. Your task is to answer questions using ONLY the provided context.

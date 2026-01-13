@@ -1,79 +1,187 @@
-# Grounded Knowledge Retrieval & Answering System
+# 🔍 Grounded RAG System with Evaluation
 
-An evaluated RAG system that produces factually grounded answers from a document corpus and provides quantitative evaluation of retrieval quality and answer faithfulness.
+A production-ready Retrieval-Augmented Generation system with **built-in evaluation**, **agentic retry capabilities**, and **hybrid search**. Unlike typical RAG demos, this system prioritizes measurability, debuggability, and answer correctness.
 
-## Features
+![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-- **Document Ingestion**: Configurable chunking with metadata extraction
-- **Vector Retrieval**: Semantic search using embeddings
-- **Grounded Generation**: Strict prompting with citation requirements
-- **Evaluation Layer**: Retrieval metrics (Recall@K, Precision@K), faithfulness scoring, failure classification
-- **Observability**: Structured logging for every query
+## ✨ Key Features
 
-## Quick Start
+| Feature | Description |
+|---------|-------------|
+| **Grounded Answers** | LLM only uses retrieved documents, with citations |
+| **Built-in Evaluation** | Faithfulness, usefulness, and failure classification |
+| **Re-query Agent** | Automatic retry with rephrasing when confidence is low |
+| **Hybrid Search** | Vector + keyword search with RRF merging |
+| **Web UI** | Dark-themed interface with citation highlighting |
+| **Docker Ready** | One-command deployment |
 
-```bash
-# Install dependencies
-pip install -r requirements.txt
+## 🏗️ Architecture
 
-# Set environment variables
-cp .env.example .env
-# Edit .env with your OpenRouter API key
-
-# Ingest documents
-python scripts/ingest.py
-
-# Run the API server
-uvicorn src.api.main:app --reload
-
-# Query the system
-curl -X POST http://localhost:8000/query \
-  -H "Content-Type: application/json" \
-  -d '{"query": "What is a transformer model?", "top_k": 5}'
+```
+User Query → Embedder → Vector Search (Top-K) → Context Assembly
+                              ↓
+                      Keyword Search (Hybrid)
+                              ↓
+                     RRF Merge → LLM Generation → Evaluation
+                                                      ↓
+                                              Failure Classification
+                                                      ↓
+                                                Structured Logs
 ```
 
-## API Endpoints
+## 🚀 Quick Start
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/Elvaceishim/grounded-rag-system.git
+cd grounded-rag-system
+pip install -r requirements.txt
+```
+
+### 2. Configure
+
+```bash
+cp .env.example .env
+# Add your OpenRouter API key to .env
+```
+
+### 3. Ingest Corpus
+
+```bash
+python scripts/ingest.py
+```
+
+### 4. Run
+
+```bash
+uvicorn src.api.main:app --reload
+# Open http://127.0.0.1:8000
+```
+
+## 🐳 Docker Deployment
+
+```bash
+# Set your API key
+export OPENROUTER_API_KEY=your_key_here
+
+# Run with docker-compose
+docker-compose up --build
+```
+
+## 📡 API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/query` | POST | Retrieve chunks and generate answer |
-| `/evaluate` | POST | Evaluate a query's retrieval and answer quality |
-| `/metrics` | GET | Get aggregated evaluation metrics |
+| `/` | GET | Web UI |
+| `/query` | POST | Standard RAG query with evaluation |
+| `/agent/query` | POST | Agent query with auto-retry |
+| `/evaluate` | POST | Evaluate with ground truth labels |
+| `/metrics` | GET | Aggregated performance metrics |
+| `/health` | GET | Health check |
 
-## Project Structure
+### Example Query
 
-```
-src/
-├── config.py          # Configuration management
-├── ingestion/         # Document loading and chunking
-├── retrieval/         # Embedding and vector search
-├── generation/        # LLM answer generation
-├── evaluation/        # Metrics and scoring
-├── logging/           # Structured query logging
-└── api/               # FastAPI endpoints
+```bash
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"query": "What is BERT?", "top_k": 5}'
 ```
 
-## Configuration
+### Example Response
 
-Key settings in `.env`:
+```json
+{
+  "query_id": "5371a5bc",
+  "generated_answer": "BERT is a pretrained language model...",
+  "citations": ["f70f08b5ae1b"],
+  "evaluation": {
+    "faithfulness_score": 1.0,
+    "usefulness_score": 1.0,
+    "failure_type": "success"
+  }
+}
+```
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `OPENROUTER_API_KEY` | OpenRouter API key | Required |
-| `CHUNK_SIZE` | Characters per chunk | 1000 |
-| `CHUNK_OVERLAP` | Overlap between chunks | 200 |
-| `TOP_K` | Number of chunks to retrieve | 5 |
-| `LLM_MODEL` | Model for generation | `openai/gpt-4o-mini` |
+## 📊 Evaluation System
 
-## Evaluation
+### Metrics
 
-The system evaluates every query on:
+- **Faithfulness**: Is the answer grounded in retrieved documents?
+- **Usefulness**: Is the answer clear, complete, and helpful?
+- **Recall@K**: Did we find all relevant documents?
+- **Precision@K**: Were retrieved documents relevant?
 
-1. **Retrieval Quality**: Recall@K, Precision@K
-2. **Answer Faithfulness**: Grounded vs hallucinated
-3. **Answer Usefulness**: Clarity and completeness
-4. **Failure Classification**: Categorizes failures for debugging
+### Failure Classification
 
-## License
+| Type | Meaning |
+|------|---------|
+| `success` | All good |
+| `retrieval_miss` | Wrong documents retrieved |
+| `partial_retrieval` | Some relevant docs missing |
+| `hallucination` | Answer made up facts |
+| `over_refusal` | Refused when answer was available |
+| `context_overload` | Too much context confused LLM |
 
-MIT
+## 🔧 Configuration
+
+Environment variables (`.env`):
+
+```env
+OPENROUTER_API_KEY=sk-or-v1-...
+LLM_MODEL=openai/gpt-4o-mini
+EMBEDDING_MODEL=openai/text-embedding-3-small
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
+TOP_K=5
+```
+
+## 📁 Project Structure
+
+```
+grounded-rag-system/
+├── src/
+│   ├── ingestion/      # Document loading & chunking
+│   ├── retrieval/      # Vector & hybrid search
+│   ├── generation/     # LLM prompts & generation
+│   ├── evaluation/     # Metrics & failure classification
+│   ├── agent/          # Re-query agent
+│   ├── logging/        # Structured query logs
+│   └── api/            # FastAPI endpoints
+├── static/             # Web UI
+├── data/corpus/        # Sample HuggingFace docs (15 files)
+├── scripts/            # CLI tools
+└── tests/              # Unit tests
+```
+
+## 🧪 Running Tests
+
+```bash
+pytest tests/ -v
+```
+
+## 📚 Sample Corpus
+
+Includes 15 HuggingFace Transformers documentation files:
+- Transformers overview, BERT, GPT
+- Tokenizers, Pipeline API, Trainer
+- Fine-tuning, LoRA/PEFT, Quantization
+- Vision Transformers, Datasets library
+
+## 🎯 What Makes This Different
+
+1. **Evaluation-first** - Every query is scored for quality
+2. **Failure taxonomy** - Know WHY something failed
+3. **Observable** - Full structured logging for debugging
+4. **Agentic** - Auto-retry with different strategies
+5. **Hybrid search** - Best of vector + keyword
+
+## 📄 License
+
+MIT License - feel free to use for learning and projects.
+
+## 🤝 Contributing
+
+Contributions welcome! Please open an issue first to discuss changes.

@@ -1,4 +1,4 @@
-# 🔍 Grounded RAG System with Evaluation
+# Grounded RAG System with Evaluation
 
 A production-ready Retrieval-Augmented Generation system with **built-in evaluation**, **agentic retry capabilities**, and **hybrid search**. Unlike typical RAG demos, this system prioritizes measurability, debuggability, and answer correctness.
 
@@ -6,7 +6,7 @@ A production-ready Retrieval-Augmented Generation system with **built-in evaluat
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Description |
 |---------|-------------|
@@ -17,7 +17,7 @@ A production-ready Retrieval-Augmented Generation system with **built-in evaluat
 | **Web UI** | Dark-themed interface with citation highlighting |
 | **Docker Ready** | One-command deployment |
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 User Query → Embedder → Vector Search (Top-K) → Context Assembly
@@ -31,7 +31,7 @@ User Query → Embedder → Vector Search (Top-K) → Context Assembly
                                                 Structured Logs
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone & Install
 
@@ -71,7 +71,7 @@ export OPENROUTER_API_KEY=your_key_here
 docker-compose up --build
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -105,7 +105,7 @@ curl -X POST http://localhost:8000/query \
 }
 ```
 
-## 📊 Evaluation System
+## Evaluation System
 
 ### Metrics
 
@@ -125,7 +125,7 @@ curl -X POST http://localhost:8000/query \
 | `over_refusal` | Refused when answer was available |
 | `context_overload` | Too much context confused LLM |
 
-## 🔧 Configuration
+## Configuration
 
 Environment variables (`.env`):
 
@@ -138,7 +138,7 @@ CHUNK_OVERLAP=200
 TOP_K=5
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 grounded-rag-system/
@@ -156,13 +156,13 @@ grounded-rag-system/
 └── tests/              # Unit tests
 ```
 
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 pytest tests/ -v
 ```
 
-## 📚 Sample Corpus
+## Sample Corpus
 
 Includes 15 HuggingFace Transformers documentation files:
 - Transformers overview, BERT, GPT
@@ -170,7 +170,7 @@ Includes 15 HuggingFace Transformers documentation files:
 - Fine-tuning, LoRA/PEFT, Quantization
 - Vision Transformers, Datasets library
 
-## 🎯 What Makes This Different
+## What Makes This Different
 
 1. **Evaluation-first** - Every query is scored for quality
 2. **Failure taxonomy** - Know WHY something failed
@@ -178,10 +178,10 @@ Includes 15 HuggingFace Transformers documentation files:
 4. **Agentic** - Auto-retry with different strategies
 5. **Hybrid search** - Best of vector + keyword
 
-## 📄 License
+## License
 
 MIT License - feel free to use for learning and projects.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please open an issue first to discuss changes.

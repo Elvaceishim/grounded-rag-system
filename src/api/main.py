@@ -22,25 +22,35 @@ def run_ingestion_if_needed():
     """Run ingestion if ChromaDB is empty."""
     from ..config import settings
     from ..ingestion.ingest import ingest_corpus, get_collection
+    from ..retrieval import Embedder
     
     chroma_dir = Path(settings.chroma_persist_dir)
     
+    # Check if forced re-ingestion is requested (for embedding model changes)
+    force_reingest = os.environ.get("FORCE_REINGEST", "").lower() in ("true", "1", "yes")
+    
     # Check if ChromaDB has data
-    try:
-        collection = get_collection()
-        count = collection.count()
-        if count > 0:
-            print(f"=== ChromaDB already has {count} chunks, skipping ingestion ===")
-            return
-    except Exception:
-        pass  # Collection doesn't exist yet
+    if not force_reingest:
+        try:
+            collection = get_collection()
+            count = collection.count()
+            if count > 0:
+                print(f"=== ChromaDB already has {count} chunks, skipping ingestion ===")
+                return
+        except Exception:
+            pass  # Collection doesn't exist yet
+    else:
+        print("=== FORCE_REINGEST is set, clearing existing data ===")
     
     print("=== ChromaDB is empty, running ingestion ===")
     try:
+        # Use OpenRouter embedder so embeddings match retrieval
+        embedder = Embedder()
         ingest_corpus(
             corpus_dir=settings.corpus_dir,
             chunk_size=settings.chunk_size,
             chunk_overlap=settings.chunk_overlap,
+            embedder=embedder,
         )
         print("=== Ingestion complete! ===")
     except Exception as e:

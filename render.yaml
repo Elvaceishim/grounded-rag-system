@@ -5,8 +5,8 @@ services:
   - type: web
     name: grounded-rag-api
     runtime: python
-    buildCommand: pip install --upgrade pip && pip install -r requirements-render.txt && python scripts/ingest.py
-    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install --upgrade pip && pip install -r requirements-render.txt
+    startCommand: python scripts/start.py
     envVars:
       - key: OPENROUTER_API_KEY
         sync: false  # Set manually in Render dashboard
@@ -21,7 +21,7 @@ services:
       - key: TOP_K
         value: "5"
       - key: CHROMA_PERSIST_DIR
-        value: ./chroma_db
+        value: /opt/render/project/src/chroma_db
       - key: LOG_DIR
         value: ./logs
       - key: CORPUS_DIR

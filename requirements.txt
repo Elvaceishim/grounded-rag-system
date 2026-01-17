@@ -4,8 +4,13 @@ uvicorn>=0.27.0
 pydantic>=2.5.0
 pydantic-settings>=2.1.0
 
-# Vector Store
+# Vector Store - using chromadb-client for lighter deployment
+# Full chromadb with onnxruntime excluded for Render compatibility
 chromadb>=0.4.22
+
+# ONNX Runtime - use slim version for Linux servers
+# This avoids the onnxruntime build issues on Render
+onnxruntime>=1.14.1; sys_platform == 'darwin'
 
 # HTTP Client (for OpenRouter API)
 httpx>=0.26.0

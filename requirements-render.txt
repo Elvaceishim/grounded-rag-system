@@ -1,0 +1,23 @@
+# Render-specific requirements
+# Avoids onnxruntime which doesn't build well on Render's infrastructure
+
+# Core
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Vector Store - minimal version without ML features
+chromadb>=0.4.22
+
+# HTTP Client (for OpenRouter API)
+httpx>=0.26.0
+
+# Logging
+structlog>=24.1.0
+
+# Document Processing
+markdown>=3.5.0
+
+# Development
+python-dotenv>=1.0.0

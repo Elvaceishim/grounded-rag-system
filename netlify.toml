@@ -1,11 +1,13 @@
 # Netlify configuration for frontend deployment
-# This is a STATIC SITE - no Python needed!
+# STATIC SITE ONLY - No build needed
 
 [build]
-  # Just publish the static folder
-  publish = "static"
-  # Simple echo command - no real build needed
-  command = "echo 'Deploying static site'"
+  # Base directory is static folder (no Python files there!)
+  base = "static"
+  # Publish from current directory (which is static)
+  publish = "."
+  # No build command needed
+  command = "echo 'Static HTML site'"
 
 [[redirects]]
   from = "/*"

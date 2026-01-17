@@ -1,13 +1,22 @@
 # Netlify configuration for frontend deployment
+# This is a STATIC SITE - no Python needed!
 
 [build]
+  # Tell Netlify to just serve these files - no build needed
   publish = "static"
-
+  # Empty build command = no dependencies installed
+  command = "echo 'Static site - no build needed'"
+  
 [build.environment]
-  # This will be replaced with the actual Render backend URL
-  API_URL = "https://grounded-rag-api.onrender.com"
+  # Disable Python detection
+  PYTHON_VERSION = "none"
+
+# Ignore Python files entirely
+[build.ignore]
+  files = ["requirements.txt", "requirements-render.txt", "*.py"]
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+

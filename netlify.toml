@@ -1,0 +1,13 @@
+# Netlify configuration for frontend deployment
+
+[build]
+  publish = "static"
+
+[build.environment]
+  # This will be replaced with the actual Render backend URL
+  API_URL = "https://grounded-rag-api.onrender.com"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

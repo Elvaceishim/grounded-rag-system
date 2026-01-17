@@ -1,0 +1,33 @@
+# Render deployment configuration
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: grounded-rag-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python scripts/ingest.py
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: LLM_MODEL
+        value: openai/gpt-4o-mini
+      - key: EMBEDDING_MODEL
+        value: openai/text-embedding-3-small
+      - key: CHUNK_SIZE
+        value: "1000"
+      - key: CHUNK_OVERLAP
+        value: "200"
+      - key: TOP_K
+        value: "5"
+      - key: CHROMA_PERSIST_DIR
+        value: ./chroma_db
+      - key: LOG_DIR
+        value: ./logs
+      - key: CORPUS_DIR
+        value: ./data/corpus
+    healthCheckPath: /health
+    disk:
+      name: chroma-data
+      mountPath: /opt/render/project/src/chroma_db
+      sizeGB: 1

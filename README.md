@@ -4,7 +4,6 @@ A production-ready Retrieval-Augmented Generation system with **built-in evaluat
 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Key Features
 
@@ -59,16 +58,6 @@ python scripts/ingest.py
 ```bash
 uvicorn src.api.main:app --reload
 # Open http://127.0.0.1:8000
-```
-
-## 🐳 Docker Deployment
-
-```bash
-# Set your API key
-export OPENROUTER_API_KEY=your_key_here
-
-# Run with docker-compose
-docker-compose up --build
 ```
 
 ## API Endpoints
@@ -160,6 +149,11 @@ grounded-rag-system/
 
 ```bash
 pytest tests/ -v
+```
+
+## Deployed Render UI
+
+```https://grounded-rag-system.onrender.com/static/index.html
 ```
 
 ## Sample Corpus

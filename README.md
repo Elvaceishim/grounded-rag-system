@@ -153,8 +153,7 @@ pytest tests/ -v
 
 ## Deployed Render UI
 
-```https://grounded-rag-system.onrender.com/static/index.html
-```
+https://grounded-rag-system.onrender.com/static/index.html
 
 ## Sample Corpus
 

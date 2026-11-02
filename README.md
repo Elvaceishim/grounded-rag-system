@@ -175,6 +175,14 @@ Includes 15 HuggingFace Transformers documentation files:
 
 MIT License - feel free to use for learning and projects.
 
+## Technical Article
+
+I documented the architecture, implementation, evaluation approach, and lessons from building this project.
+
+**[Building a RAG System That Doesn't Just Answer Questions, It Evaluates Its Answers](https://elvisanselm.hashnode.dev/building-a-rag-system-that-doesn-t-just-answer-questions-it-evaluates-its-answers)**
+
+Also published on [Medium](https://medium.com/@theelvace/building-a-rag-system-that-doesnt-just-answer-questions-it-evaluates-its-answers-57e3d74e0b96). The article has also been submitted to HackerNoon for editorial review.
+
 ## Contributing
 
 Contributions welcome! Please open an issue first to discuss changes.
